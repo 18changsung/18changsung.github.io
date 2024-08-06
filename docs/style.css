@@ -1,0 +1,115 @@
+body {
+    background-color: #191919;
+    color: #cbcbcb;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Change from center to flex-start to align content at the top */
+    height: auto;
+    overflow-y: auto; /* Allow vertical scrolling */
+    flex-direction: column;
+}
+
+/* Style for hyperlinks without changing the color */
+a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* Optionally, you can add styles for hover, focus, and active states if needed */
+a:hover, a:focus, a:active {
+    color: inherit;
+    text-decoration: teal wavy underline; /* or none if you don't want an underline */
+}
+
+/* button */
+.custom-button {
+    color: black;
+    background-color: white;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px 8px;
+    font-size: 16px;
+    border-style: solid;
+    cursor: pointer;
+    /* margin: 2px; */
+}
+
+.custom-button:hover {
+    color: white;
+    background-color: teal;
+}
+
+/*
+.custom-button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+*/
+
+/* body */
+
+.container {
+    max-width: 1000px;
+    padding: 70px;
+    text-align: left;
+}
+
+.header {
+    text-align: left;
+}
+
+.profile-photo {
+    width: 300px;
+    height: 300px;
+    /* filter: drop-shadow(0 0 0.2rem dimgray); */
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.2em;
+}
+
+.header h3 {
+    font-size: 1.2em;
+    margin: 0.2em 0;
+}
+
+.header p {
+    margin: 1.0em 0;
+}
+
+.bio {
+    margin-top: 10px;
+    font-size: 1.2em;
+    line-height: 1.5em;
+    border: 1.5px solid #cbcbcb;
+    padding: 20px;
+}
+
+.content {
+    margin-top: 60px;
+    font-size: 1.2em;
+    line-height: 1.5em;
+}
+
+.publication {
+    margin-top: 20px;
+    border: 1.5px solid #cbcbcb;
+    padding: 20px;
+}
+
+.publication-image {
+    width: 100%;
+    max-width: 800px;
+    margin: 10px 0;
+}
+
+.footer {
+    margin-top: 40px;
+    font-size: 0.8em;
+    text-align: left;
+}
