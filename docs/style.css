@@ -129,3 +129,30 @@ a:hover, a:focus, a:active {
     height: 1em;
     margin-right: 8px; /* Add space between icon and text */
 }
+
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between each timeline entry */
+    max-width: 1500px;
+    margin: auto;
+}
+
+.timeline-row {
+    display: flex;
+    gap: 20px; /* Space between year, month, and news */
+}
+
+.timeline-year {
+    font-weight: bold;
+    width: 50px; /* Fixed width for year */
+}
+
+.timeline-month {
+    font-weight: bold;
+    width: 50px; /* Fixed width for month */
+}
+
+.timeline-news {
+    flex: 1; /* Takes the remaining space */
+}
