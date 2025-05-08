@@ -21,7 +21,7 @@ a {
 /* Optionally, you can add styles for hover, focus, and active states if needed */
 a:hover, a:focus, a:active {
     color: inherit;
-    text-decoration: teal wavy underline; /* or none if you don't want an underline */
+    text-decoration: #15a3c7 wavy underline; /* or none if you don't want an underline */
 }
 
 /* button */
@@ -40,7 +40,7 @@ a:hover, a:focus, a:active {
 
 .custom-button:hover {
     color: white;
-    background-color: teal;
+    background-color: #15a3c7;
 }
 
 /*
@@ -159,6 +159,28 @@ a:hover, a:focus, a:active {
 
 .highlight-name {
     /* color: #09d0ef; */
-    color: #09bfdb;
+    /* color: #09bfdb; */
+    color: #15a3c7;
     font-weight: bold;
 }
+
+.toggle-abstract-btn {
+    margin: 10px 0;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.badge {
+    display: inline-block;
+    background-color: #15a3c7;
+    color: white;
+    padding: 0px 8px;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+  
