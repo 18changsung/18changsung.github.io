@@ -64,7 +64,7 @@ a:hover, a:focus, a:active {
 
 .profile-photo {
     width: 300px;
-    height: 350px;
+    height: 300px;
     /* filter: drop-shadow(0 0 0.2rem dimgray); */
 }
 
