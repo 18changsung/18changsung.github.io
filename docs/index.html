@@ -14,22 +14,22 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            height: auto;
-            overflow-y: auto;
-            flex-direction: column;
+            min-height: 100vh;
         }
 
         a {
             color: inherit;
             text-decoration: underline;
+            transition: color 0.3s ease, text-decoration-color 0.3s ease;
         }
 
-        a:hover, a:focus, a:active {
-            color: inherit;
+        a:hover,
+        a:focus,
+        a:active {
+            color: #15a3c7;
             text-decoration: #15a3c7 wavy underline;
         }
 
-        /* Glassmorphism button */
         .custom-button {
             color: black;
             background: rgba(255, 255, 255, 0.9);
@@ -61,7 +61,6 @@
             text-decoration: none;
         }
 
-        /* Glassmorphism social buttons */
         .social-button {
             color: white;
             background: rgba(255, 255, 255, 0.1);
@@ -96,16 +95,35 @@
         }
 
         .container {
-            max-width: 1000px;
-            padding: 40px 20px;
-            padding-left: 70px;
-            text-align: left;
             width: 100%;
+            max-width: 1400px;
+            padding: 40px 20px;
             box-sizing: border-box;
         }
 
+        .page-layout {
+            display: flex;
+            align-items: flex-start;
+            gap: 60px;
+        }
+
+        .main-content-column {
+            flex: 1;
+            min-width: 0;
+            max-width: 1000px;
+        }
+
+        .sidebar-column {
+            width: 320px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 40px;
+        }
+
         .header {
-            text-align: left;
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
         }
 
         .profile-photo {
@@ -114,10 +132,13 @@
             height: auto;
             aspect-ratio: 1;
             border-radius: 10px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .header-content {
+            flex-grow: 1;
         }
 
         .header h1 {
@@ -137,7 +158,7 @@
         }
 
         .bio {
-            margin-top: 10px;
+            margin-top: 40px;
             font-size: 1.1em;
             line-height: 1.5em;
             padding: 20px;
@@ -146,6 +167,7 @@
             -webkit-backdrop-filter: blur(10px);
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
         }
 
         .research_interest {
@@ -180,28 +202,66 @@
             -webkit-backdrop-filter: blur(10px);
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
+            position: relative;
         }
 
         .publication h3 {
             font-size: 1.2em;
             line-height: 1.4;
+            margin-top: 2px;
+            margin-bottom: 8px;
+        }
+
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
             margin-bottom: 15px;
+        }
+
+        .award-overlay-image {
+            position: absolute;
+            top: -10px;
+            left: -20px;
+            width: 45px;
+            height: 45px;
+            z-index: 10;
+            filter: drop-shadow(0 4px 10px rgba(212, 175, 55, 0.3));
         }
 
         .publication-image {
             width: 100%;
             max-width: 800px;
             height: auto;
-            margin: 10px 0;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            margin: 2px 0;
+            border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .interesting-facts {
+            margin-top: 40px;
+        }
+
+        .interesting-facts h2 {
+            margin-bottom: 15px;
+        }
+
+        .interesting-facts ul {
+            padding-left: 40px;
+            list-style-type: circle;
+        }
+
+        .interesting-facts li {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 10px;
         }
 
         .footer {
             margin-top: 40px;
             font-size: 0.8em;
-            text-align: left;
         }
 
         .icon-img {
@@ -211,77 +271,42 @@
             flex-shrink: 0;
         }
 
-        .timeline-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-width: 100%;
-            margin: auto;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .timeline-row {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .timeline-year {
-            font-weight: bold;
-            min-width: 45px;
-            flex-shrink: 0;
-        }
-
-        .timeline-month {
-            font-weight: bold;
-            min-width: 40px;
-            flex-shrink: 0;
-        }
-
-        .timeline-news {
-            flex: 1;
-            min-width: 200px;
-        }
-
         .highlight-name {
-            color: #15a3c7;
+            background-color: #15a3c780;
             font-weight: bold;
+            padding: 3px;
+        }
+
+        .badge,
+        .new-badge,
+        .award-badge {
+            display: inline-block;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            font-weight: bold;
+            line-height: 1.4;
+            vertical-align: middle;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .badge {
-            display: inline-block;
             background: rgba(21, 163, 199, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: white;
-            padding: 2px 10px;
-            border-radius: 8px;
-            font-size: 0.7em;
-            margin: 3px;
-            vertical-align: middle;
             box-shadow: 0 2px 10px rgba(21, 163, 199, 0.3);
         }
 
         .new-badge {
-            display: inline-block;
             background: #ff002fcc;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: white;
-            padding: 2px 10px;
-            border-radius: 8px;
-            font-size: 0.7em;
-            margin: 3px;
-            vertical-align: middle;
             box-shadow: 0 2px 10px #ff002f91;
         }
 
-        /* Abstract toggle styles */
+        .award-badge {
+            background: #d4af37;
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
+        }
+
         .abstract-toggle {
             display: inline-block;
             background: rgba(255, 255, 255, 0.1);
@@ -293,23 +318,18 @@
             padding: 6px 12px;
             font-size: 0.9em;
             cursor: pointer;
-            margin: 8px 0;
+            margin: 2px 0;
             transition: all 0.3s ease;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .abstract-toggle:hover {
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             transform: translateY(-1px);
         }
 
         .abstract-toggle.active {
             background: rgba(21, 163, 199, 0.3);
-            border-color: rgba(21, 163, 199, 0.5);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
         }
 
         .abstract-content {
@@ -317,35 +337,147 @@
             margin-top: 10px;
             padding: 15px;
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
             border-left: 3px solid #15a3c7;
             border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
         }
 
         .abstract-content.show {
             display: block;
         }
 
-        .social-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin: 15px 0;
-        }
-
+        .social-links,
         .button-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 2px;
-            margin-left: 5px 0;
+            gap: 5px;
+            margin: 5px 0;
         }
 
-        /* Mobile-specific styles */
+        .sidebar-column {
+            position: static;
+        }
+
+        .sidebar-column h2 {
+            font-size: 1.4em;
+            margin-bottom: 25px;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: rgba(21, 163, 199, 0.2);
+            border-radius: 2px;
+        }
+
+        .timeline-year-group {
+            margin-bottom: 20px;
+        }
+
+        .timeline-year-header {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #15a3c7;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 5px;
+        }
+
+        .timeline-row {
+            display: flex;
+            gap: 15px;
+            position: relative;
+            margin-bottom: 15px;
+            padding: 5px;
+            border-radius: 8px;
+        }
+
+        .timeline-row::before {
+            content: '';
+            position: absolute;
+            left: -19px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            background: #15a3c7;
+            border-radius: 50%;
+            border: 2px solid #191919;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-row:hover::before {
+            transform: scale(1.6);
+        }
+
+        .timeline-month {
+            font-weight: bold;
+            min-width: 40px;
+            flex-shrink: 0;
+        }
+
+        .timeline-news {
+            flex: 1;
+            font-size: 0.95em;
+            line-height: 1.2;
+        }
+
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1200px) {
+            .page-layout {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .main-content-column {
+                display: contents;
+            }
+
+            .sidebar-column {
+                width: 100%;
+                position: static;
+                order: 5;
+            }
+
+            .interesting-facts,
+            .footer {
+                order: 6;
+            }
+
+            .header,
+            .bio,
+            .content,
+            .interesting-facts,
+            .footer {
+                margin-top: 0;
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 20px 15px;
+            }
+
+            .header {
+                flex-direction: column;
             }
 
             .header h1 {
@@ -353,20 +485,22 @@
             }
 
             .header h3 {
+                font-size: 1.0em;
+            }
+
+            .bio,
+            .content,
+            .interesting-facts li,
+            .footer {
                 font-size: 1em;
             }
 
             .bio {
-                font-size: 1em;
                 padding: 15px;
             }
 
-            .content {
-                margin-top: 30px;
-                font-size: 1em;
-            }
-
-            .content h2 {
+            .content h2,
+            .sidebar-column h2 {
                 font-size: 1.3em;
             }
 
@@ -377,337 +511,227 @@
             .publication h3 {
                 font-size: 1.1em;
             }
-
-            .timeline-container {
-                padding: 15px;
-            }
-
-            .timeline-row {
-                gap: 10px;
-            }
-
-            .timeline-year {
-                min-width: 40px;
-            }
-
-            .timeline-month {
-                min-width: 35px;
-            }
-
-            .timeline-news {
-                min-width: 150px;
-            }
-
-            .social-button {
-                font-size: 16px;
-                padding: 6px 10px;
-            }
-
-            .custom-button {
-                font-size: 13px;
-                padding: 2px 8px;
-            }
-
-            .research_interest {
-                font-size: 0.85em;
-                margin-right: 5px;
-            }
-
-            .badge, .new-badge {
-                font-size: 0.8em;
-                padding: 1px 8px;
-            }
-        }
-
-        /* Small mobile devices */
-        @media (max-width: 480px) {
-            .container {
-                padding: 15px 10px;
-            }
-
-            .header h1 {
-                font-size: 1.6em;
-            }
-
-            .header h3 {
-                font-size: 0.95em;
-            }
-
-            .timeline-year {
-                min-width: 35px;
-                font-size: 0.9em;
-            }
-
-            .timeline-month {
-                min-width: 30px;
-                font-size: 0.9em;
-            }
-
-            .timeline-news {
-                font-size: 0.9em;
-                min-width: 120px;
-            }
-
-            .social-button {
-                font-size: 16px;
-                padding: 5px 8px;
-                margin: 3px 5px 3px 0;
-            }
-
-            .custom-button {
-                font-size: 12px;
-                padding: 2px 8px;
-            }
-
-            .publication h3 {
-                font-size: 1.05em;
-            }
-
-            .content h2 {
-                font-size: 1.2em;
-            }
-        }
-
-        /* Very small screens */
-        @media (max-width: 360px) {
-            .timeline-row {
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .timeline-year, .timeline-month {
-                display: inline;
-                margin-right: 10px;
-            }
-
-            .timeline-news {
-                min-width: auto;
-            }
-        }
-
-        /* Landscape orientation on mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .container {
-                padding: 15px;
-            }
-
-            .content {
-                margin-top: 20px;
-            }
         }
     </style>
-    <!-- favicon.io -->
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="favicon_io/site.webmanifest">
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0W3588D0G7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-0W3588D0G7');
-</script>
-<!-- Statcounter code for cslim.xyz http://cslim.xyz on Google Sites (new) -->
-<script type="text/javascript">
-    var sc_project=13137439; 
-    var sc_invisible=1; 
-    var sc_security="e39199db"; 
-    </script>
-    <script type="text/javascript"
-    src="https://www.statcounter.com/counter/counter.js" async></script>
-    <noscript><div class="statcounter"><a title="Web Analytics Made Easy -
-    Statcounter" href="https://statcounter.com/" target="_blank"><img
-    class="statcounter" src="https://c.statcounter.com/13137439/0/e39199db/1/"
-    alt="Web Analytics Made Easy - Statcounter"
-    referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
-    <!-- End of Statcounter Code -->
 <body>
     <div class="container">
-        <div class="header">
-            <img src="images/profile4.png" alt="Profile Photo" class="profile-photo">
-            <h1 style="margin-bottom: 20px;">Changsung Lim</h1>
-            <h3 style="margin-bottom: 10px;">M.S. student in <a href="https://hcil.kaist.ac.kr/" target="_blank">HCI Lab</a> (Prof. <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a>)</h3>
-            <h3>KAIST, School of Computing</h3>
-            <p>contact: cslim at kaist.ac.kr</p>
-            <div class="social-links">
-                <a href="https://scholar.google.com/citations?user=etZJhp0AAAAJ&hl=en&oi=ao" target="_blank" class="social-button">
-                    <img src="images/Google_Scholar_logo.svg" alt="Google Scholar Icon" class="icon-img">
-                    Google Scholar
-                </a>
-                <a href="https://www.linkedin.com/in/changsung-lim" target="_blank" class="social-button">
-                    <img src="images/LinkedIn_logo.svg" alt="LinkedIn Icon" class="icon-img">
-                    LinkedIn
-                </a>
-                <a href="https://https://github.com/18changsung" target="_blank" class="social-button">
-                    <img src="images/Github-Logo.svg" alt="Github Icon" class="icon-img">
-                    Github
-                </a>
-            </div>
-            <h3 style="margin-top: 20px; color: #15a3c7;">🔭 I am seeking a PhD position starting in 2026!</h3>
-            <p class="bio">
-                안녕하세요, I'm Changsung Lim (임창성).
-                <br>I'm passionate about discovering natural and more effective ways to interact in VR.</br>
-                I believe that one day, everyone will have their own VR device, and I'm preparing for that future.</br>
-                Feel free to reach out.
-            </p>
-        </div>
-        <div class="content">
-            <h2>├─ Research_Interests</h2>
-            <p class="research_interest">XR Interaction</p><p class="research_interest">Sensing Techniques</p>
-        </div>
-        <div class="content">
-            <h2>├─ Latest_News</h2>
-            <div class="timeline-container">
-                <div class="timeline-row">
-                    <div class="timeline-year">2025</div>
-                    <div class="timeline-month">APR</div>
-                    <div class="timeline-news"> Excited to attend CHI 2025 (Yokohama, Japan)</div>
+        <div class="page-layout">
+            <main class="main-content-column">
+                <div class="header fade-in-section">
+                    <img src="images/profile4.png" alt="Profile Photo" class="profile-photo">
+                    <div class="header-content">
+                        <h1 style="margin-bottom: 20px;">Changsung Lim</h1>
+                        <h3 style="margin-bottom: 10px;">M.S. student in <a href="https://hcil.kaist.ac.kr/" target="_blank">HCI Lab</a> (Prof. <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a>)</h3>
+                        <h3>KAIST, School of Computing</h3>
+                        <p>contact: cslim at kaist.ac.kr</p>
+                        <div class="social-links">
+                            <a href="https://drive.google.com/file/d/1wkCANXh_T8_KnPkiN0ObU1Zhm1W6MrOd/view?usp=drive_link" target="_blank" class="social-button"><img src="images/CV.png" alt="CV Icon" class="icon-img">CV</a>
+                            <a href="https://scholar.google.com/citations?user=etZJhp0AAAAJ&hl=en&oi=ao" target="_blank" class="social-button"><img src="images/Google_Scholar_logo.svg" alt="Google Scholar Icon" class="icon-img">Google Scholar</a>
+                            <a href="https://www.linkedin.com/in/changsung-lim" target="_blank" class="social-button"><img src="images/LinkedIn_logo.svg" alt="LinkedIn Icon" class="icon-img">LinkedIn</a>
+                            <a href="https://github.com/18changsung" target="_blank" class="social-button"><img src="images/Github-Logo.svg" alt="Github Icon" class="icon-img">Github</a>
+                        </div>
+                        <h3 style="margin-top: 20px; color: #15a3c7;">🔭 I am seeking a PhD position starting in 2026!</h3>
+                    </div>
                 </div>
-                <div class="timeline-row">
-                    <div class="timeline-year">2024</div>
-                    <div class="timeline-month">OCT</div>
-                    <div class="timeline-news">DualPad Demo at UIST 2024 (Pittsburgh, USA)</div>
+                <p class="bio fade-in-section">
+                    안녕하세요, I'm Changsung Lim (임창성).
+                    <br>I'm passionate about discovering natural and more effective ways to interact in VR.<br>
+                    I believe that one day, everyone will have their own VR device, and I'm preparing for that future.<br>
+                    Feel free to reach out.
+                </p>
+                <div class="content fade-in-section">
+                    <h2>Research Interests</h2>
+                    <p class="research_interest">XR Interaction</p>
+                    <p class="research_interest">Sensing Techniques</p>
                 </div>
-                <div class="timeline-row">
-                    <div class="timeline-year"></div>
-                    <div class="timeline-month">MAY</div>
-                    <div class="timeline-news">Rejoined HCIL (Human Computer Interaction Lab) at KAIST</div>
+                <div class="content fade-in-section">
+                    <h2>Selected Publications</h2>
+                    <div class="publication">
+                        <h3>
+                            TwinSpin: A Virtual Ball in a VR Controller Enabling In-Hand 3DoF Rotation
+                        </h3>
+                        <div class="badge-container">
+                            <span class="badge">UIST 2025 Papers</span>
+                            <span class="award-badge">Honorable Mention Award</span>
+                        </div>
+                        <img src="images/award.png" alt="Award PNG" class="award-overlay-image"> 
+                        <img src="images/TwinSpin.png" alt="Publication Image" class="publication-image">
+                        <div class="button-group">
+                            <a href="https://doi.org/10.1145/3746059.3747735" target="_blank" class="custom-button">DOI</a>
+                            <a href="https://drive.google.com/file/d/1kOP7tqQXU0Ox-fexvrlGcJXSJycblD7M/view?usp=sharing" target="_blank" class="custom-button">PDF</a>
+                            <a href="https://youtu.be/G0aLSQZBtG4?feature=shared" target="_blank" class="custom-button">Preview</a>
+                            <a href="https://youtu.be/pTvxs5ChnCY?feature=shared" target="_blank" class="custom-button">Video</a>
+                            <a href="https://drive.google.com/file/d/1Mh9TJ-EVQJjgAfVQUsnU4ngLQOxdbPHu/view?usp=drive_link" target="_blank" class="custom-button">Demo Abstract</a>
+                        </div>
+                        <p><span class="highlight-name">Changsung Lim</span>, <a href="https://taejunkim.com" target="_blank">Taejun Kim</a>, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
+                        <button class="abstract-toggle" onclick="toggleAbstract('abstract1')">Show Abstract</button>
+                        <div class="abstract-content" id="abstract1">
+                            <p>In-hand rotation is a natural motor skill of humans, yet current VR controllers mainly rely on arm and wrist movements to rotate virtual objects, leading to significant arm motion and fatigue. To address this, we propose TwinSpin, a VR controller employing two embedded mini-trackballs manipulated by the thumb and index finger. Its design is based on the intuitive metaphor of rolling a virtual ball in-hand to achieve three degrees-of-freedom (3DoF) rotation, leveraging finger dexterity to reduce arm movement and improve task efficiency in VR object manipulation tasks. Through docking tasks in both direct and distant object manipulations, our evaluation showed that TwinSpin significantly reduced arm travel distance, arm rotation, and task completion time compared to conventional arm-based rotation techniques. In line with the objective metrics, participants reported lower perceived physical demand, effort, and less perceived fatigue in the wrist, arm, and shoulder. We also share deeper analyses of the parallel control of translation and rotation, as well as optimal rotation trajectories, to gain further insights into user behavior with TwinSpin. To the best of our knowledge, this is the first attempt to enable full in-hand 3DoF rotation in a power-grip style VR controller.</p>
+                        </div>
+                    </div>
+                    <div class="publication">
+                        <h3>
+                            Ball20: An In-Hand Near-Spherical 20-Sided Tangible Controller for Diverse Gesture Interaction in AR/VR
+                        </h3>
+                        <div class="badge-container">
+                            <span class="badge">CHI 2025 LBW</span>
+                        </div>
+                        <img src="images/Ball20.png" alt="Publication Image" class="publication-image">
+                        <div class="button-group">
+                            <a href="https://doi.org/10.1145/3706599.3719967" target="_blank" class="custom-button">DOI</a>
+                            <a href="https://drive.google.com/file/d/1K6nSo3Tl9yXVMMtRT0AIOwaZSDozPGZT/view?usp=sharing" target="_blank" class="custom-button">PDF</a>
+                            <a href="https://drive.google.com/file/d/1vP5xNcbbogNkoxJH6ZD4SEpXNFPgNs-g/view?usp=sharing" target="_blank" class="custom-button">Poster</a>
+                        </div>
+                        <p><a href="#" target="_blank">Sunbum Kim</a>, <a href="https://kyunghwan.xyz/" target="_blank">Kyunghwan Kim</a>, <span class="highlight-name">Changsung Lim</span>, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
+                        <button class="abstract-toggle" onclick="toggleAbstract('abstract2')">Show Abstract</button>
+                        <div class="abstract-content" id="abstract2">
+                            <p>Spherical tangible devices have been explored in various studies to support effective object manipulation and enhance immersive experiences in augmented and virtual reality environments. However, because their spherical form makes it difficult to incorporate traditional input channels, their applicability and use as general-purpose input devices remain limited. In this paper, we present the Ball20, an in-hand near-spherical 20-sided tangible controller with independent force sensing on each face, designed to enable diverse gesture interactions. We developed the Ball20 hardware, designed a gesture set, and implemented a drawing application to demonstrate the Ball20 concept. In the first user study, we evaluated the feasibility of using the Ball20 for a drawing application and collected feedback. In the second user study, we further refined the Ball20 and conducted a quantitative usability evaluation.</p>
+                        </div>
+                    </div>
+                    <div class="publication">
+                        <h3>
+                            DualPad: Exploring Non-Dominant Hand Interaction on Dual-Screen Laptop Touchpads
+                        </h3>
+                        <div class="badge-container">
+                            <span class="badge">UIST 2024 Demos</span>
+                        </div>
+                        <img src="images/DualPad.png" alt="Publication Image" class="publication-image">
+                        <div class="button-group">
+                            <a href="https://doi.org/10.1145/3672539.3686751" target="_blank" class="custom-button">DOI</a>
+                            <a href="https://drive.google.com/file/d/1iDrDzwirz7_9KK03OKgXM3uPxUg3JOJT/view?usp=sharing" target="_blank" class="custom-button">PDF</a>
+                            <a href="https://youtu.be/vBspwoN-8lo" target="_blank" class="custom-button">Preview</a>
+                            <a href="https://youtu.be/l0t2500L15I" target="_blank" class="custom-button">Video</a>
+                            <a href="https://drive.google.com/file/d/1ZrKmWRdZ_aBsKMYWAbAZ7kYhDaOfyofR/view?usp=sharing" target="_blank" class="custom-button">Poster</a>
+                        </div>
+                        <p><span class="highlight-name">Changsung Lim</span>, <a href="https://pinetree408.github.io/" target="_blank">Sangyoon Lee</a>, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
+                        <button class="abstract-toggle" onclick="toggleAbstract('abstract3')">Show Abstract</button>
+                        <div class="abstract-content" id="abstract3">
+                            <p>Dual-touchscreen laptops present opportunities for providing an expansive touchpad on the lower touchscreen. This expanded touchpad offers space for the engagement of both the dominant and non-dominant hands. In this context, it is necessary to redefine the role of the non-dominant hand. Therefore, we propose DualPad for dual-touchscreen laptops, which provides a long touchpad on the lower touchscreen. The non-dominant hand can utilize this DualPad to execute Touch Shortcut / Modifier, analogous to keyboard shortcuts and modifier keys on single-screen laptops. Moreover, we propose Dual Cursor as an example of bimanual interaction. In the demonstration, participants are expected to utilize the custom presentation program to create the given slide using two distinct methods. First, they employ the default layout of the virtual keyboard and virtual touchpad provided on the dual-touchscreen laptop. Then, they utilize DualPad for comparison.</p>
+                        </div>
+                    </div>
+                    <div class="publication">
+                        <h3>
+                            Thumble: One-Handed 3D Object Manipulation Using a Thimble-Shaped Wearable Device in Virtual Reality
+                        </h3>
+                        <div class="badge-container">
+                            <span class="badge">UIST 2022 Posters</span>
+                        </div>
+                        <img src="images/Thumble.png" alt="Publication Image" class="publication-image">
+                        <div class="button-group">
+                            <a href="https://doi.org/10.1145/3526114.3558703" target="_blank" class="custom-button">DOI</a>
+                            <a href="https://drive.google.com/file/d/1bU_22x-oHaQWeEBpR0V1PdD9wXkg19c7/view?usp=sharing" target="_blank" class="custom-button">PDF</a>
+                            <a href="https://youtu.be/7MFu08rQ4WE?feature=shared" target="_blank" class="custom-button">Video</a>
+                            <a href="https://drive.google.com/file/d/1cya-dKjV_IgpHmXHoL7gEgrkf9GQAAi5/view?usp=sharing" target="_blank" class="custom-button">Poster</a>
+                        </div>
+                        <p><span class="highlight-name">Changsung Lim</span>, <a href="https://sites.google.com/view/jina-kim?usp=sharing" target="_blank">Jina Kim</a>, <a href="https://sites.google.com/view/kimmj/home" target="_blank">Myung Jin Kim</a></p>
+                        <p>*All authors contributed equally to this research (alphabetical order)</p>
+                        <button class="abstract-toggle" onclick="toggleAbstract('abstract4')">Show Abstract</button>
+                        <div class="abstract-content" id="abstract4">
+                            <p>Conventional controllers or hand-tracking interactions in VR cause hand fatigue while manipulating 3D objects because repetitive wrist rotation and hand movements are often required. As a solution to this inconvenience, we propose Thumble, a novel wearable input device worn on the thumb for modifying the orientation of 3D objects. Thumble can rotate the 3D objects depending on the orientation of the thumb and using the thumb pad as an input surface on which the index finger rubs to control the direction and degree of rotations. Therefore, it requires minimal motion of the wrist and the arm. Through the informal user study, we collected the subjective feedback of users and found that Thumble has less hand movement than a conventional VR controller.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="timeline-row">
-                    <div class="timeline-year"></div>
-                    <div class="timeline-month">APR</div>
-                    <div class="timeline-news">Went on a coast-to-coast road trip in USA by myself (from LA to NY)</div>
+                <div class="interesting-facts fade-in-section">
+                    <h2>Interesting facts about me</h2>
+                    <ul>
+                        <li>I drove a car from LA to NY (5500 miles) on my own.</li>
+                        <li>I have a cute little toy poodle (her name is Mocha).</li>
+                        <li>I use a trackball mouse (Logitech ERGO M575S).</li>
+                        <li>I like to play basketball.</li>
+                    </ul>
                 </div>
-                <div class="timeline-row">
-                    <div class="timeline-year"></div>
-                    <div class="timeline-month">MAR</div>
-                    <div class="timeline-news">Discharged from the military service (Republic of Korea Army)</div>
+                <div class="footer fade-in-section">
+                    <p>Last updated: Sep 8, 2025</p>
+                    <p>Designed by Changsung Lim.</p>
                 </div>
-                <div class="timeline-row">
-                    <div class="timeline-year">2022</div>
-                    <div class="timeline-month">SEP</div>
-                    <div class="timeline-news">Started the military service (Republic of Korea Army)</div>
+            </main>
+            <aside class="sidebar-column fade-in-section">
+                <h2>Latest News</h2>
+                <div class="timeline-container">
+                    <div class="timeline-year-group">
+                        <h4 class="timeline-year-header">2025</h4>
+                        <div class="timeline-row">
+                            <div class="timeline-month">SEP</div>
+                            <div class="timeline-news">🏅 TwinSpin received an Honorable Mention Award <br> at UIST 2025!</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-month">AUG</div>
+                            <div class="timeline-news">🏆 Won 1st Place at the ICT Challenge 2025! (Project: MidasRing, out of 206 teams)</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-month">JUL</div>
+                            <div class="timeline-news">🎉 TwinSpin is accepted to <br> UIST 2025!</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-month">JUN</div>
+                            <div class="timeline-news">🦺 Served as a student volunteer at the SIGCHI Korea Local Chapter Event.</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-month">APR</div>
+                            <div class="timeline-news">🇯🇵 Excited to attend CHI 2025 (Yokohama, Japan).</div>
+                        </div>
+                    </div>
+                    <div class="timeline-year-group">
+                        <h4 class="timeline-year-header">2024</h4>
+                        <div class="timeline-row">
+                            <div class="timeline-month">OCT</div>
+                            <div class="timeline-news">🇺🇸 DualPad Demo at UIST 2024 (Pittsburgh, USA).</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-month">MAY</div>
+                            <div class="timeline-news">👨‍💻 Rejoined HCIL at KAIST.</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-month">APR</div>
+                            <div class="timeline-news">🇺🇸 Coast-to-coast road trip in USA (LA to NY).</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-month">MAR</div>
+                            <div class="timeline-news">🎖️ Discharged from military service (ROK Army).</div>
+                        </div>
+                    </div>
+                    <div class="timeline-year-group">
+                        <h4 class="timeline-year-header">2022</h4>
+                        <div class="timeline-row">
+                            <div class="timeline-month">SEP</div>
+                            <div class="timeline-news">🪖 Started military service (ROK Army).</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-month">FEB</div>
+                            <div class="timeline-news">👨‍💻 Joined HCIL at KAIST.</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="timeline-row">
-                    <div class="timeline-year"></div>
-                    <div class="timeline-month">FEB</div>
-                    <div class="timeline-news">Joined HCIL (Human Computer Interaction Lab) at KAIST</div>
-                </div>
-            </div>
-            
-        </div>
-        <div class="content">
-            <h2>├─ Selected Publications</h2>
-            <div class="publication">
-                <h3>
-                    TwinSpin: A Virtual Ball in a VR Controller Enabling In-Hand 3DoF Rotation <br> (coming soon...)
-                    <span class="badge">UIST 2025 Papers</span>
-                    <span class="new-badge">New!</span>
-                </h3>
-                <img src="images/TwinSpin.png" alt="Publication Image" class="publication-image">
-                <p><span class="highlight-name">Changsung Lim</span>, <a href="https://taejunkim.com" target="_blank">Taejun Kim</a>, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
-                
-                <button class="abstract-toggle" onclick="toggleAbstract('abstract1')">Show Abstract</button>
-                <div class="abstract-content" id="abstract1">
-                    <p>In-hand rotation is a natural motor skill of humans, yet current VR controllers mainly rely on arm and wrist movements to rotate virtual objects, leading to significant arm motion and fatigue. To address this, we propose TwinSpin, a VR controller employing two embedded mini-trackballs manipulated by the thumb and index finger. Its design is based on the intuitive metaphor of rolling a virtual ball in-hand to achieve three degrees-of-freedom (3DoF) rotation, leveraging finger dexterity to reduce arm movement and improve task efficiency in VR object manipulation tasks. Through docking tasks in both direct and distant object manipulations, our evaluation showed that TwinSpin significantly reduced arm travel distance, arm rotation, and task completion time compared to conventional arm-based rotation techniques. In line with the objective metrics, participants reported lower perceived physical demand, effort, and less perceived fatigue in the wrist, arm, and shoulder. We also share deeper analyses of the parallel control of translation and rotation, as well as optimal rotation trajectories, to gain further insights into user behavior with TwinSpin. To the best of our knowledge, this is the first attempt to enable full in-hand 3DoF rotation in a power-grip style VR controller.</p>
-                </div>
-            </div>
-            <div class="publication">
-                <h3>
-                    Ball20: An In-Hand Near-Spherical 20-Sided Tangible Controller for Diverse Gesture Interaction in AR/VR
-                    <span class="badge">CHI 2025 LBW</span>
-                </h3>
-                <img src="images/Ball20.png" alt="Publication Image" class="publication-image">
-                <div class="button-group">
-                    <a href="https://doi.org/10.1145/3706599.3719967" target="_blank" class="custom-button">DOI</a>
-                    <a href="https://drive.google.com/file/d/1K6nSo3Tl9yXVMMtRT0AIOwaZSDozPGZT/view?usp=sharing" target="_blank" class="custom-button">PDF</a>
-                    <a href="https://drive.google.com/file/d/1vP5xNcbbogNkoxJH6ZD4SEpXNFPgNs-g/view?usp=sharing" target="_blank" class="custom-button">Poster</a>
-                </div>
-                <p><a href="https://drive.google.com/file/d/1nIkp9LMJ7MQRY-iVZM8MuuXDcz24IvHe/view" target="_blank">Sunbum Kim</a>, <a href="https://kyunghwan.xyz/" target="_blank">Kyunghwan Kim</a>, <span class="highlight-name">Changsung Lim</span>, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
-                
-                <button class="abstract-toggle" onclick="toggleAbstract('abstract2')">Show Abstract</button>
-                <div class="abstract-content" id="abstract2">
-                    <p>Spherical tangible devices have been explored in various studies to support effective object manipulation and enhance immersive experiences in augmented and virtual reality environments. However, because their spherical form makes it difficult to incorporate traditional input channels, their applicability and use as general-purpose input devices remain limited. In this paper, we present the Ball20, an in-hand near-spherical 20-sided tangible controller with independent force sensing on each face, designed to enable diverse gesture interactions. We developed the Ball20 hardware, designed a gesture set, and implemented a drawing application to demonstrate the Ball20 concept. In the first user study, we evaluated the feasibility of using the Ball20 for a drawing application and collected feedback. In the second user study, we further refined the Ball20 and conducted a quantitative usability evaluation.</p>
-                </div>
-            </div>
-            <div class="publication">
-                <h3>
-                    DualPad: Exploring Non-Dominant Hand Interaction on Dual-Screen Laptop Touchpads
-                    <span class="badge">UIST 2024 Demos</span>
-                </h3>
-                <img src="images/DualPad.png" alt="Publication Image" class="publication-image">
-                <div class="button-group">
-                    <a href="https://doi.org/10.1145/3672539.3686751" target="_blank" class="custom-button">DOI</a>
-                    <a href="https://drive.google.com/file/d/1iDrDzwirz7_9KK03OKgXM3uPxUg3JOJT/view?usp=sharing" target="_blank" class="custom-button">PDF</a>
-                    <a href="https://youtu.be/l0t2500L15I" target="_blank" class="custom-button">Video</a>
-                    <a href="https://youtu.be/vBspwoN-8lo" target="_blank" class="custom-button">Preview</a>
-                    <a href="https://drive.google.com/file/d/1ZrKmWRdZ_aBsKMYWAbAZ7kYhDaOfyofR/view?usp=sharing" target="_blank" class="custom-button">Poster</a>
-                </div>
-                <p><span class="highlight-name">Changsung Lim</span>, <a href="https://pinetree408.github.io/" target="_blank">Sangyoon Lee</a>, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
-                
-                <button class="abstract-toggle" onclick="toggleAbstract('abstract3')">Show Abstract</button>
-                <div class="abstract-content" id="abstract3">
-                    <p>Dual-touchscreen laptops present opportunities for providing an expansive touchpad on the lower touchscreen. This expanded touchpad offers space for the engagement of both the dominant and non-dominant hands. In this context, it is necessary to redefine the role of the non-dominant hand. Therefore, we propose DualPad for dual-touchscreen laptops, which provides a long touchpad on the lower touchscreen. The non-dominant hand can utilize this DualPad to execute Touch Shortcut / Modifier, analogous to keyboard shortcuts and modifier keys on single-screen laptops. Moreover, we propose Dual Cursor as an example of bimanual interaction. In the demonstration, participants are expected to utilize the custom presentation program to create the given slide using two distinct methods. First, they employ the default layout of the virtual keyboard and virtual touchpad provided on the dual-touchscreen laptop. Then, they utilize DualPad for comparison.</p>
-                </div>
-            </div>
-            <div class="publication">
-                <h3>
-                    Thumble: One-Handed 3D Object Manipulation Using a Thimble-Shaped Wearable Device in Virtual Reality 
-                    <span class="badge">UIST 2022 Posters</span>
-                </h3>
-                <img src="images/Thumble.png" alt="Publication Image" class="publication-image">
-                <div class="button-group">
-                    <a href="https://doi.org/10.1145/3526114.3558703" target="_blank" class="custom-button">DOI</a>
-                    <a href="https://drive.google.com/file/d/1bU_22x-oHaQWeEBpR0V1PdD9wXkg19c7/view?usp=sharing" target="_blank" class="custom-button">PDF</a>
-                    <a href="https://youtu.be/7MFu08rQ4WE?feature=shared" target="_blank" class="custom-button">Video</a>
-                    <a href="https://drive.google.com/file/d/1cya-dKjV_IgpHmXHoL7gEgrkf9GQAAi5/view?usp=sharing" target="_blank" class="custom-button">Poster</a>
-                </div>
-                <p><span class="highlight-name">Changsung Lim</span>, <a href="https://sites.google.com/view/jina-kim?usp=sharing" target="_blank">Jina Kim</a>, <a href="https://sites.google.com/view/kimmj/home" target="_blank">Myung Jin Kim</a></p>
-                <p>*All authors contributed equally to this research (alphabetical order)</p>
-                
-                <button class="abstract-toggle" onclick="toggleAbstract('abstract4')">Show Abstract</button>
-                <div class="abstract-content" id="abstract4">
-                    <p>Conventional controllers or hand-tracking interactions in VR cause hand fatigue while manipulating 3D objects because repetitive wrist rotation and hand movements are often required. As a solution to this inconvenience, we propose Thumble, a novel wearable input device worn on the thumb for modifying the orientation of 3D objects. Thumble can rotate the 3D objects depending on the orientation of the thumb and using the thumb pad as an input surface on which the index finger rubs to control the direction and degree of rotations. Therefore, it requires minimal motion of the wrist and the arm. Through the informal user study, we collected the subjective feedback of users and found that Thumble has less hand movement than a conventional VR controller.</p>
-                </div>
-            </div>
-            <!-- Add more publications as needed -->
-        </div>
-        <div class="content">
-            <h2>└─ Interesting_facts_about_me</h2>
-            <p>
-                <ul>
-                    <li>I drove a car from LA to NY (5500 miles) on my own.</li>
-                    <li>I have a cute little toy poodle (her name is Mocha).</li>
-                    <li>I use a trackball mouse (Logitech ERGO M575S).</li>
-                    <li>I like to play basketball.</li>
-                </ul>
-            </p>
-        </div>
-        <div class="footer">
-            <p>Last updated: Jul 25, 2025</p>
-            <p>Designed by Changsung Lim.</p>
+            </aside>
         </div>
     </div>
-
     <script>
         function toggleAbstract(abstractId) {
             const abstractContent = document.getElementById(abstractId);
             const button = event.target;
-            
-            if (abstractContent.classList.contains('show')) {
-                abstractContent.classList.remove('show');
-                button.textContent = 'Show Abstract';
-                button.classList.remove('active');
-            } else {
+            const isAlreadyOpen = abstractContent.classList.contains('show');
+            document.querySelectorAll('.abstract-content.show').forEach(openAbstract => {
+                openAbstract.classList.remove('show');
+                openAbstract.previousElementSibling.textContent = 'Show Abstract';
+                openAbstract.previousElementSibling.classList.remove('active');
+            });
+            if (!isAlreadyOpen) {
                 abstractContent.classList.add('show');
                 button.textContent = 'Hide Abstract';
                 button.classList.add('active');
             }
         }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.fade-in-section');
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.classList.add('is-visible');
+                }, 150 * index);
+            });
+        });
     </script>
 </body>
 </html>
