@@ -59,7 +59,7 @@
             --bg-color: #f2f2f7;
             --text-color: #3a3a3c;
             --text-heading: #000000;
-            --accent-color: #0d8aab; /* Teal variant for visibility */
+            --accent-color: #0d8aab; /* Darker teal for visibility */
 
             --glass-bg: rgba(255, 255, 255, 0.75);
             --glass-border: rgba(0, 0, 0, 0.05);
@@ -67,14 +67,14 @@
             --button-bg: rgba(255, 255, 255, 0.9);
             --button-text: #000000;
             
-            /* Keep Social Buttons Clean White in Light Mode */
+            /* Social Buttons */
             --social-bg: rgba(255, 255, 255, 0.7);
             --social-border: rgba(0, 0, 0, 0.1);
             --social-hover: #ffffff;
 
             --timeline-line: rgba(13, 138, 171, 0.3);
             --shadow-color: rgba(0, 0, 0, 0.1);
-            --icon-filter: invert(1); /* Invert CV icon only */
+            --icon-filter: invert(1); /* Invert CV icon */
         }
 
         /* --- Global Layout --- */
@@ -82,6 +82,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: 'Open Sans', sans-serif;
+            font-size: 16px; 
             margin: 0;
             padding: 0;
             display: flex;
@@ -89,6 +90,7 @@
             align-items: flex-start;
             min-height: 100vh;
             transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4 {
@@ -160,7 +162,7 @@
             text-decoration: none !important;
             border-radius: 5px;
             padding: 0px 10px;
-            font-size: 16px;
+            font-size: 17px;
             cursor: pointer;
             box-shadow: 0 4px 12px var(--shadow-color);
             transition: all 0.3s ease;
@@ -184,7 +186,7 @@
             text-decoration: none !important;
             border-radius: 10px;
             padding: 8px 14px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 4px 15px var(--shadow-color);
@@ -251,7 +253,7 @@
         .abstract-toggle:hover { background: var(--social-hover); transform: translateY(-1px); }
         .abstract-toggle.active { background: var(--accent-color); color: white; border-color: var(--accent-color); }
         
-        /* Contrast for Abstract Button in Light Mode */
+        /* High contrast for abstract button in light mode */
         [data-theme="light"] .abstract-toggle {
             background: rgba(0, 0, 0, 0.05);
             border-color: rgba(0, 0, 0, 0.15);
@@ -275,27 +277,35 @@
             padding: 40px 20px;
             box-sizing: border-box;
         }
+        
+        /* Flex Layout Configuration */
         .page-layout {
             display: flex;
             align-items: flex-start;
             gap: 60px;
+            flex-wrap: wrap; /* Prevents breaking on intermediate screens */
         }
+        
         .main-content-column {
             flex: 1;
             min-width: 0;
             max-width: 1000px;
         }
+        
         .sidebar-column {
             width: 320px;
             flex-shrink: 0;
             position: sticky;
             top: 40px;
         }
+
         .header {
             display: flex;
             align-items: flex-start;
             gap: 40px;
+            flex-wrap: wrap;
         }
+        
         .profile-photo {
             width: 100%;
             max-width: 300px;
@@ -306,7 +316,8 @@
             object-fit: cover;
             flex-shrink: 0;
         }
-        .header-content { flex-grow: 1; }
+        
+        .header-content { flex-grow: 1; min-width: 300px; }
         .header h1 { font-size: 2.2em; margin-bottom: 0.2em; line-height: 1.2; }
         .header h3 { font-size: 1.1em; margin: 0.2em 0; line-height: 1.4; }
         .header p { margin: 1.0em 0; }
@@ -383,15 +394,18 @@
             z-index: 1; transition: transform 0.3s ease, border 0.3s ease;
         }
         .timeline-row:hover::before { transform: scale(1.6); }
-        .timeline-month { 
-            font-weight: bold; 
+        
+        .timeline-month {
+            font-weight: bold;
             font-family: monospace;
-            font-size: 1.1em;
-            min-width: 35px;
+            font-size: 1.0em;
+            width: 30px; /* Fixed width for alignment */
             text-align: center;
-            flex-shrink: 0; 
+            flex-shrink: 0;
+            margin-right: 5px;
             letter-spacing: 0.5px;
         }
+        
         .timeline-news { flex: 1; font-size: 0.95em; line-height: 1.2; }
 
         /* Animation */
@@ -401,20 +415,45 @@
         }
         .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
 
-        /* Responsive Design */
+        /* --- Responsive Design --- */
         @media (max-width: 1200px) {
-            .page-layout { flexDirection: column; gap: 20px; }
-            .main-content-column { display: contents; }
-            .sidebar-column { width: 100%; position: static; order: 5; }
+            .page-layout {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .main-content-column {
+                width: 100%;
+                display: block; 
+                max-width: none;
+            }
+            .sidebar-column {
+                width: 100%;
+                position: static;
+                order: 5;
+            }
             .interesting-facts, .footer { order: 6; }
             .header, .bio, .content, .interesting-facts, .footer { margin-top: 0; }
         }
+
         @media (max-width: 768px) {
             .container { padding: 20px 15px; }
-            .header { flexDirection: column; }
+            
+            .header {
+                flex-direction: column;
+            }
+            .header-content {
+                min-width: 0;
+                width: 100%;
+            }
+            
             .header h1 { font-size: 1.8em; }
+            .header h3 { font-size: 1.0em; }
             .bio, .content, .interesting-facts li, .footer { font-size: 1em; }
             .bio { padding: 15px; }
+            .content h2, .sidebar-column h2 { font-size: 1.3em; }
+            .publication { padding: 15px; }
+            .publication h3 { font-size: 1.1em; }
+            
             .theme-toggle { top: 10px; right: 10px; width: 40px; height: 40px; }
         }
     </style>
@@ -503,7 +542,7 @@
                         <p><span class="highlight-name">Changsung Lim</span>, <a href="https://taejunkim.com" target="_blank">Taejun Kim</a>, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
                         <button class="abstract-toggle" onclick="toggleAbstract('abstract1')">Show Abstract</button>
                         <div class="abstract-content" id="abstract1">
-                            <p>In-hand rotation is a natural motor skill of humans, yet current VR controllers mainly rely on arm and wrist movements to rotate virtual objects, leading to significant arm motion and fatigue. To address this, we propose TwinSpin, a VR controller employing two embedded mini-trackballs manipulated by the thumb and index finger...</p>
+                            <p>In-hand rotation is a natural motor skill of humans, yet current VR controllers mainly rely on arm and wrist movements to rotate virtual objects, leading to significant arm motion and fatigue. To address this, we propose TwinSpin, a VR controller employing two embedded mini-trackballs manipulated by the thumb and index finger. Its design is based on the intuitive metaphor of rolling a virtual ball in-hand to achieve three degrees-of-freedom (3DoF) rotation, leveraging finger dexterity to reduce arm movement and improve task efficiency in VR object manipulation tasks. Through docking tasks in both direct and distant object manipulations, our evaluation showed that TwinSpin significantly reduced arm travel distance, arm rotation, and task completion time compared to conventional arm-based rotation techniques. In line with the objective metrics, participants reported lower perceived physical demand, effort, and less perceived fatigue in the wrist, arm, and shoulder. We also share deeper analyses of the parallel control of translation and rotation, as well as optimal rotation trajectories, to gain further insights into user behavior with TwinSpin. To the best of our knowledge, this is the first attempt to enable full in-hand 3DoF rotation in a power-grip style VR controller.</p>
                         </div>
                     </div>
 
@@ -524,7 +563,7 @@
                         <p><span class="highlight-name">Changsung Lim</span>, Yohan Yun, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
                         <button class="abstract-toggle" onclick="toggleAbstract('abstract2')">Show Abstract</button>
                         <div class="abstract-content" id="abstract2">
-                            <p>In-hand rotation is a natural component of human motor skills; however, most commercial VR controllers rely on a "wrist-arm rotation" technique...</p>
+                            <p>In-hand rotation is a natural component of human motor skills; however, most commercial VR controllers rely on a "wrist-arm rotation" technique, in which users rotate virtual objects by physically rotating their wrists and arms. Its repetitive nature and dependence on large movements of the wrist and arm can lead to physical fatigue. To address this problem, we propose TwinSpin, a VR controller that enables in-hand 3DoF rotation by leveraging finger dexterity, inspired by the metaphor of rolling a ball in hand. It combines two trackballs, each providing 2DoF rotation and positioned under the thumb and index finger, to form a single virtual ball that supports full 3DoF rotation. This design allows users to perform rotation tasks efficiently while maintaining a stable power grip on the controller. In our demonstration, participants play the Puzzle Key game from The Legend of Zelda: Skyward Sword in a VR environment using the TwinSpin controller, allowing hands-on exploration of the effectiveness of our approach.</p>
                         </div>
                     </div>
                     
@@ -542,7 +581,7 @@
                         <p><a href="#" target="_blank">Sunbum Kim</a>, <a href="https://kyunghwan.xyz/" target="_blank">Kyunghwan Kim</a>, <span class="highlight-name">Changsung Lim</span>, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
                         <button class="abstract-toggle" onclick="toggleAbstract('abstract3')">Show Abstract</button>
                         <div class="abstract-content" id="abstract3">
-                            <p>Spherical tangible devices have been explored in various studies to support effective object manipulation...</p>
+                            <p>Spherical tangible devices have been explored in various studies to support effective object manipulation and enhance immersive experiences in augmented and virtual reality environments. However, because their spherical form makes it difficult to incorporate traditional input channels, their applicability and use as general-purpose input devices remain limited. In this paper, we present the Ball20, an in-hand near-spherical 20-sided tangible controller with independent force sensing on each face, designed to enable diverse gesture interactions. We developed the Ball20 hardware, designed a gesture set, and implemented a drawing application to demonstrate the Ball20 concept. In the first user study, we evaluated the feasibility of using the Ball20 for a drawing application and collected feedback. In the second user study, we further refined the Ball20 and conducted a quantitative usability evaluation.</p>
                         </div>
                     </div>
 
@@ -562,7 +601,7 @@
                         <p><span class="highlight-name">Changsung Lim</span>, <a href="https://pinetree408.github.io/" target="_blank">Sangyoon Lee</a>, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
                         <button class="abstract-toggle" onclick="toggleAbstract('abstract4')">Show Abstract</button>
                         <div class="abstract-content" id="abstract4">
-                            <p>Dual-touchscreen laptops present opportunities for providing an expansive touchpad on the lower touchscreen...</p>
+                            <p>Dual-touchscreen laptops present opportunities for providing an expansive touchpad on the lower touchscreen. This expanded touchpad offers space for the engagement of both the dominant and non-dominant hands. In this context, it is necessary to redefine the role of the non-dominant hand. Therefore, we propose DualPad for dual-touchscreen laptops, which provides a long touchpad on the lower touchscreen. The non-dominant hand can utilize this DualPad to execute Touch Shortcut / Modifier, analogous to keyboard shortcuts and modifier keys on single-screen laptops. Moreover, we propose Dual Cursor as an example of bimanual interaction. In the demonstration, participants are expected to utilize the custom presentation program to create the given slide using two distinct methods. First, they employ the default layout of the virtual keyboard and virtual touchpad provided on the dual-touchscreen laptop. Then, they utilize DualPad for comparison.</p>
                         </div>
                     </div>
 
@@ -582,7 +621,7 @@
                         <p>*All authors contributed equally to this research (alphabetical order)</p>
                         <button class="abstract-toggle" onclick="toggleAbstract('abstract5')">Show Abstract</button>
                         <div class="abstract-content" id="abstract5">
-                            <p>Conventional controllers or hand-tracking interactions in VR cause hand fatigue while manipulating 3D objects...</p>
+                            <p>Conventional controllers or hand-tracking interactions in VR cause hand fatigue while manipulating 3D objects because repetitive wrist rotation and hand movements are often required. As a solution to this inconvenience, we propose Thumble, a novel wearable input device worn on the thumb for modifying the orientation of 3D objects. Thumble can rotate the 3D objects depending on the orientation of the thumb and using the thumb pad as an input surface on which the index finger rubs to control the direction and degree of rotations. Therefore, it requires minimal motion of the wrist and the arm. Through the informal user study, we collected the subjective feedback of users and found that Thumble has less hand movement than a conventional VR controller.</p>
                         </div>
                     </div>
                 </div>
@@ -707,7 +746,7 @@
             sections.forEach((section, index) => {
                 setTimeout(() => {
                     section.classList.add('is-visible');
-                }, 350 * index);
+                }, 150 * index);
             });
 
             // Theme Toggle Logic
