@@ -9,7 +9,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
     <link rel="manifest" href="favicon_io/site.webmanifest">
-    
+
+    <link rel="preload" as="image" href="images/profile.jpg">
+    <link rel="preload" as="font" type="font/woff2" href="fonts/open-sans-latin.woff2" crossorigin>
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0W3588D0G7"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -26,7 +29,32 @@
     <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
     <noscript><div class="statcounter"><a title="Web Analytics Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13137439/0/e39199db/1/" alt="Web Analytics Made Easy - Statcounter" referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 
+    <script>
+        // Set to true to enable staggered fade-in on page load (toggle here only)
+        window.ENABLE_ENTRANCE_ANIMATIONS = true;
+
+        (function () {
+            if (history.scrollRestoration) {
+                history.scrollRestoration = 'manual';
+            }
+            if (localStorage.getItem('theme') === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+            if (window.ENABLE_ENTRANCE_ANIMATIONS) {
+                document.documentElement.classList.add('entrance-animations');
+            }
+        })();
+    </script>
+
     <style>
+        @font-face {
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 400 700;
+            font-display: swap;
+            src: url('fonts/open-sans-latin.woff2') format('woff2');
+        }
+
         /* --- CSS Variables --- */
         :root {
             /* Dark Mode (Default) */
@@ -89,23 +117,27 @@
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease;
             overflow-x: hidden;
         }
 
         h1, h2, h3, h4 {
             color: var(--text-heading);
-            transition: color 0.3s ease;
         }
 
         a {
             color: inherit;
             text-decoration: underline;
-            transition: color 0.3s ease, text-decoration-color 0.3s ease;
+            text-underline-offset: 0.25em;
+            text-decoration-skip-ink: auto;
         }
-        a:hover, a:focus, a:active {
+        a:hover:not(.social-button):not(.custom-button),
+        a:focus:not(.social-button):not(.custom-button),
+        a:active:not(.social-button):not(.custom-button) {
             color: var(--accent-color);
             text-decoration: var(--accent-color) wavy underline;
+            text-underline-offset: 0.25em;
+            transition: color 0.15s ease, text-decoration-color 0.15s ease;
         }
 
         /* Email Link Styling */
@@ -113,13 +145,14 @@
             text-decoration: none;
             color: inherit;
             font-weight: 600;
-            transition: color 0.2s ease;
         }
         .email-link:hover {
             color: var(--accent-color) !important;
             text-decoration: underline !important;
             text-decoration-style: wavy !important;
+            text-underline-offset: 0.25em;
             cursor: pointer;
+            transition: color 0.15s ease;
         }
 
         /* --- Theme Toggle Button --- */
@@ -207,6 +240,8 @@
         .icon-img {
             width: 1.1em;
             height: 1.1em;
+            min-width: 1.1em;
+            min-height: 1.1em;
             margin-right: 8px;
             flex-shrink: 0;
             transition: filter 0.3s ease;
@@ -266,7 +301,7 @@
             margin-top: 10px;
             padding: 15px;
             border-left: 3px solid var(--accent-color);
-            border-radius: 0 8px 8px 0;
+            border-radius: 0 12px 12px 0;
         }
         .abstract-content.show { display: block; }
 
@@ -301,37 +336,29 @@
 
         .header {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 40px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
         
         .profile-photo {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            aspect-ratio: 1;
+            width: 250px;
+            max-width: 250px;
+            height: 337px;
+            aspect-ratio: 1200 / 1618;
             border-radius: 10px;
             box-shadow: 0 8px 32px var(--shadow-color);
             object-fit: cover;
             flex-shrink: 0;
         }
         
-        .header-content { flex-grow: 1; min-width: 300px; }
+        .header-content {
+            flex-grow: 1;
+            min-width: 300px;
+        }
         .header h1 { font-size: 2.2em; margin-bottom: 0.2em; line-height: 1.2; }
         .header h3 { font-size: 1.1em; margin: 0.2em 0; line-height: 1.4; }
         .header p { margin: 1.0em 0; }
-
-        .research_interest {
-            display: inline-block;
-            background: rgba(21, 163, 199, 0.1);
-            color: var(--accent-color);
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            margin-right: 8px;
-            margin-top: 5px;
-        }
 
         .content { margin-top: 40px; font-size: 1.1em; line-height: 1.5em; }
         .content h2 { font-size: 1.4em; margin-bottom: 20px; }
@@ -360,14 +387,13 @@
             padding: 3px;
         }
 
-        .badge, .new-badge, .award-badge {
+        .badge, .award-badge {
             display: inline-block; color: white; padding: 4px 12px;
             border-radius: 8px; font-size: 0.8em; font-weight: bold;
             line-height: 1.4; vertical-align: middle;
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
         }
         .badge { background: rgba(21, 163, 199, 0.8); box-shadow: 0 2px 10px rgba(21, 163, 199, 0.3); }
-        .new-badge { background: #ff002fcc; box-shadow: 0 2px 10px #ff002f91; }
         .award-badge { background: #d4af37; box-shadow: 0 2px 10px rgba(212, 175, 55, 0.5); }
 
         .social-links, .button-group { display: flex; flex-wrap: wrap; gap: 5px; margin: 5px 0; }
@@ -408,12 +434,12 @@
         
         .timeline-news { flex: 1; font-size: 0.95em; line-height: 1.2; }
 
-        /* Animation */
-        .fade-in-section {
+        /* Entrance animations (toggle via ENABLE_ENTRANCE_ANIMATIONS in script) */
+        html.entrance-animations .fade-in-section {
             opacity: 0; transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
-        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+        html.entrance-animations .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
 
         /* --- Responsive Design --- */
         @media (max-width: 1200px) {
@@ -440,6 +466,8 @@
             
             .header {
                 flex-direction: column;
+                flex-wrap: wrap;
+                align-items: flex-start;
             }
             .header-content {
                 min-width: 0;
@@ -459,9 +487,6 @@
     </style>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.3.2/css/flag-icons.min.css"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Google+Sans:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -486,20 +511,17 @@
         <div class="page-layout">
             <main class="main-content-column">
                 <div class="header fade-in-section">
-                    <img src="images/profile4.png" alt="Profile Photo" class="profile-photo">
+                    <img src="images/profile.jpg" alt="Profile Photo" class="profile-photo" width="250" height="337" fetchpriority="high">
                     <div class="header-content">
                         <h1 style="margin-bottom: 20px;">Changsung Lim</h1>
-                        <h3 style="margin-bottom: 10px;">M.S. student in <a href="https://hcil.kaist.ac.kr/" target="_blank">HCI Lab</a> (Prof. <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a>)</h3>
-                        <h3>KAIST, School of Computing</h3>
+                        <h3 style="margin-bottom: 10px;">Incoming Ph.D. student in <a href="https://ivi.cc.gatech.edu/" target="_blank">IVI Lab</a> (Prof. <a href="https://ivi.cc.gatech.edu/pi.html" target="_blank">Yalong Yang</a>)</h3>
+                        <h4>Georgia Tech, Computer Science <br> School of Interactive Computing </h4>
+                        <!-- <h3 style="margin-bottom: 10px;">M.S. student in <a href="https://hcil.kaist.ac.kr/" target="_blank">HCI Lab</a> (Prof. <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a>)</h3>
+                        <h3>KAIST, School of Computing</h3> -->
                         
                         <p>
-                        contact: 
-                        <script type="text/javascript">
-                            // Email Obfuscation
-                            var user = "cslim";
-                            var domain = "kaist.ac.kr";
-                            document.write('<a href="mailto:' + user + '@' + domain + '" class="email-link">' + user + '@' + domain + '</a>');
-                        </script>
+                        contact:
+                        <a href="mailto:changsung.lim@gatech.edu" class="email-link">changsung.lim<!-- -->@<!-- -->gatech.edu</a>
                         </p>
 
                         <div class="social-links">
@@ -508,18 +530,16 @@
                             <a href="https://www.linkedin.com/in/changsung-lim" target="_blank" class="social-button"><img src="images/LinkedIn_logo.svg" alt="LinkedIn Icon" class="icon-img">LinkedIn</a>
                             <a href="https://github.com/18changsung" target="_blank" class="social-button"><img src="images/Github-Logo.svg" alt="Github Icon" class="icon-img">Github</a>
                         </div>
-                        <h3 style="margin-top: 20px; color: var(--accent-color);">🔭 I am seeking a PhD position starting in 2026!</h3>
                     </div>
                 </div>
                 
                 <h2 class="fade-in-section" style="margin-bottom: 20px;">About Me</h2>
                 <p class="bio fade-in-section" style="margin-top: 0;">
                     안녕하세요, I'm Changsung Lim (임창성).
-                    I am passionate about exploring seamless and intuitive interactions in XR.
-                    My research covers diverse aspects of XR: novel interaction design, hardware prototyping with advanced sensing, and the investigation of cognitive user experiences. 
-                    I am also interested in integrating Generative AI in XR, using LLMs to enable context-aware and adaptive environments.
-                    Believing in a future where everyone possesses their own XR device, I am paving the way for this reality.
-                    Feel free to reach out.
+                    I am an incoming Ph.D. student in the IVI Lab at Georgia Tech, advised by Prof. Yalong Yang.
+                    I envision a future where XR devices are an integral part of everyone's daily life. To help realize this, I plan to focus my Ph.D. research on the intersection of AI and Spatial Computing (XR), aiming to create context-aware, seamless, and intuitive interactions.
+                    Before joining Georgia Tech, my research centered around novel interaction design, sensing techniques, and hardware prototyping. In this trajectory, I received my M.S. in Computer Science from KAIST, advised by Prof. Geehyuk Lee (KAIST HCI Lab), and my B.S. in Computer Science and Engineering from Chung-Ang University, working with Prof. Jeongyeup Paek.
+                    Please feel free to connect or reach out!
                 </p>
 
                 <div class="content fade-in-section">
@@ -560,7 +580,7 @@
                             <a href="https://www.youtube.com/watch?v=2lvmPh2CID8" target="_blank" class="custom-button">Video</a>
                             <a href="https://drive.google.com/file/d/1oGQG51qBUxzZurgg9PzMKPaoRCXeKLHp/view?usp=sharing" target="_blank" class="custom-button">Poster</a>
                         </div>
-                        <p><span class="highlight-name">Changsung Lim</span>, Yohan Yun, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
+                        <p><span class="highlight-name">Changsung Lim</span>, <a href="https://johnnyyoungster.github.io/" target="_blank">Yohan Yun</a>, <a href="https://cs.kaist.ac.kr/people/view?idx=372&kind=faculty&menu=172" target="_blank">Geehyuk Lee</a></p>
                         <button class="abstract-toggle" onclick="toggleAbstract('abstract2')">Show Abstract</button>
                         <div class="abstract-content" id="abstract2">
                             <p>In-hand rotation is a natural component of human motor skills; however, most commercial VR controllers rely on a "wrist-arm rotation" technique, in which users rotate virtual objects by physically rotating their wrists and arms. Its repetitive nature and dependence on large movements of the wrist and arm can lead to physical fatigue. To address this problem, we propose TwinSpin, a VR controller that enables in-hand 3DoF rotation by leveraging finger dexterity, inspired by the metaphor of rolling a ball in hand. It combines two trackballs, each providing 2DoF rotation and positioned under the thumb and index finger, to form a single virtual ball that supports full 3DoF rotation. This design allows users to perform rotation tasks efficiently while maintaining a stable power grip on the controller. In our demonstration, participants play the Puzzle Key game from The Legend of Zelda: Skyward Sword in a VR environment using the TwinSpin controller, allowing hands-on exploration of the effectiveness of our approach.</p>
@@ -636,7 +656,7 @@
                     </ul>
                 </div>
                 <div class="footer fade-in-section">
-                    <p>Last updated: Jan 19, 2026</p>
+                    <p>Last updated: Jul 1, 2026</p>
                     <p>Designed by Changsung Lim.</p>
                 </div>
             </main>
@@ -646,6 +666,14 @@
                 <div class="timeline-container">
                     <div class="timeline-year-group">
                         <h4 class="timeline-year-header">2026</h4>
+                        <div class="timeline-row">
+                            <div class="timeline-month">FEB</div>
+                            <div class="timeline-news">🎓 Graduated Master's degree in Computer Science at KAIST.</div>
+                        </div>
+                        <div class="timeline-row">
+                            <div class="timeline-month">FEB</div>
+                            <div class="timeline-news">🏅 Received Outstanding Master's Thesis Award in School of Computing at KAIST.</div>
+                        </div>
                         <div class="timeline-row">
                             <div class="timeline-month">JAN</div>
                             <div class="timeline-news"><span class="fi fi-us"></span> Excited to attend CES 2026 (Las Vegas, USA).</div>
@@ -738,28 +766,19 @@
     </script>
     
     <script>
-        // Prevent scroll restoration on refresh
-        if (history.scrollRestoration) {
-            history.scrollRestoration = 'manual';
-        }
-        window.scrollTo(0, 0);
-
         document.addEventListener('DOMContentLoaded', () => {
-            // Fade-in Animation
-            const sections = document.querySelectorAll('.fade-in-section');
-            sections.forEach((section, index) => {
-                setTimeout(() => {
-                    section.classList.add('is-visible');
-                }, 150 * index);
-            });
+            if (window.ENABLE_ENTRANCE_ANIMATIONS) {
+                const sections = document.querySelectorAll('.fade-in-section');
+                sections.forEach((section, index) => {
+                    setTimeout(() => {
+                        section.classList.add('is-visible');
+                    }, 150 * index);
+                });
+            }
 
             // Theme Toggle Logic
             const toggleButton = document.getElementById('theme-toggle');
             const htmlElement = document.documentElement;
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'light') {
-                htmlElement.setAttribute('data-theme', 'light');
-            }
 
             toggleButton.addEventListener('click', () => {
                 const currentTheme = htmlElement.getAttribute('data-theme');
